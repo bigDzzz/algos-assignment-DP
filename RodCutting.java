@@ -2,6 +2,7 @@ package ass1;
 
 /**
  * Rod cutting problem described in Chapter 15 of textbook
+ * Author: FengYu Zhang
  */
 public class RodCutting {
   // Do not change the parameters!
