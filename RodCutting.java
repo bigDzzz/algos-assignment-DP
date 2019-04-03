@@ -1,16 +1,58 @@
+package ass1;
+
 /**
  * Rod cutting problem described in Chapter 15 of textbook
  */
 public class RodCutting {
-
   // Do not change the parameters!
   public int rodCuttingRecur(int rodLength, int[] lengthPrices) {
-    return 0;
+	 
+	  int[] memo = new int [rodLength + 1];//create an array with the num of index same as length of the rod
+	  
+	  for(int i = 0; i < memo.length; i++) {
+		  memo[i] = -1;
+	  }
+    
+	  return memoizedRodCutting(rodLength, lengthPrices, memo);
   }
-
+  
+  public int memoizedRodCutting(int n, int[] p, int[] memo) {
+	 
+	  int ans;
+	  
+	  if(memo[n] >= 0) {
+		  return memo[n];
+	  }
+	  
+	  if(n == 0) {
+		  ans = 0;
+	  }
+	  else {
+		  ans = -1;
+		  for(int i = 0; i < n; i++) {
+			  ans = Math.max(ans, p[i] + memoizedRodCutting(n - i - 1, p , memo));
+		  }
+	  }
+	  
+	  memo[n] = ans;
+	  
+	  return ans;
+  }
+  
   // Do not change the parameters!
   public int rodCuttingBottomUp(int rodLength, int[] lengthPrices) {
-    return 0;
+	  int ans[] = new int[rodLength + 1]; 
+      ans[0] = 0; 
+
+      for (int i = 1; i <= rodLength; i++){ 
+          int max_val = Integer.MIN_VALUE; 
+          for (int j = 0; j < i; j++) {
+              max_val = Math.max(max_val, lengthPrices[j] + ans[i-j-1]); 
+          }
+          ans[i] = max_val; 
+      } 
+
+      return ans[rodLength];
   }
 
 
